@@ -1,5 +1,5 @@
 import MyTabBar from './BottomTabNavigator';
-import Banner from './Banner';
 import Gap from './Gap';
 import PrayList from './PrayList';
-export {MyTabBar, Banner, Gap, PrayList};
+import LoadingSekelaton from './LoadingSekelaton';
+export {MyTabBar, Gap, PrayList, LoadingSekelaton};

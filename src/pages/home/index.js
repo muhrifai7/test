@@ -1,14 +1,20 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {StyleSheet, View, Text, StatusBar, FlatList} from 'react-native';
+import {StyleSheet, View, Text, StatusBar, Button} from 'react-native';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 
 import {getPrays} from '../../redux/ducks/action';
-import {Banner, Gap, PrayList} from '../../components';
-import {COLORS} from '../../contants';
+import {useLocalStorage} from '../../utils/uselocalStorage';
+import {Gap, PrayList, LoadingSekelaton} from '../../components';
+import {COLORS} from '../../constants';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(true);
+  /**
+   * Store (persist state) use local storage
+   */
+  const [newMovies, setNewMovies] = useLocalStorage('@movies');
   const [prays, setPrays] = useState([]);
   const {data, error, loading} = useSelector(
     (state) => ({
@@ -24,23 +30,40 @@ const Home = () => {
     fetchData();
   }, [prays, fetchData]);
 
-  const fetchData = useCallback(() => dispatch(getPrays()), []);
-  console.log(data, 'datatat');
+  const fetchData = useCallback(
+    () => dispatch(getPrays()),
+    // setNewMovies(data),
+    [],
+  );
+
   return (
     <View style={{flex: 1}}>
       <StatusBar backgroundColor={COLORS.primary} />
       <View style={styles.container}>
         <View style={styles.wraperHeader}>
-          <Text style={styles.title}>Waktu Sholat</Text>
-          <Text style={styles.title}>Jakarta</Text>
+          <Text style={styles.title}>Movie List</Text>
         </View>
-        <Banner />
-        <Gap height={10} />
-        <View style={styles.wraperHeader}>
-          <Text style={styles.title}>Muharam 2021</Text>
-          <Text style={styles.title}>Januari 2021</Text>
+        <Gap height={17} />
+        {loading ? (
+          <LoadingSekelaton />
+        ) : (
+          <PrayList movies={data} navigation={navigation} />
+        )}
+        <View style={styles.newMovie}>
+          <Text>Penyimpanan Lokal Telah Diperbaharui </Text>
+          <Gap width={5} />
+          <TouchableOpacity>
+            <Button
+              buttonStyle={{
+                borderRadius: 0,
+                marginLeft: 0,
+                marginRight: 0,
+                marginBottom: 0,
+              }}
+              title="Show"
+            />
+          </TouchableOpacity>
         </View>
-        <PrayList movies={data} />
       </View>
     </View>
   );
@@ -59,9 +82,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 10,
-    fontSize: 25,
   },
   title: {
     color: COLORS.green,
+    fontSize: 25,
+  },
+  newMovie: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#b2bec3',
+    bottom: 10,
+    marginHorizontal: 8,
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 7,
   },
 });

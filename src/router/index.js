@@ -1,24 +1,26 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  TransitionSpecs,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import {
-  HomeScreen,
-  Profiles,
-  SplashScreen,
-  Courses,
-  Messages,
-  Notifications,
-  OnBoarding,
-  Register,
-  Login,
-  ForgotPassword,
-} from '../pages';
+import {HomeScreen, Profiles, SplashScreen, Movie, OnBoarding} from '../pages';
 import {MyTabBar} from '../components';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const config = {
+  transitionSpec: {
+    open: TransitionSpecs.FadeInFromBottomAndroidSpec,
+    close: TransitionSpecs.FadeInFromBottomAndroidSpec,
+  },
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  gestureEnabled: true,
+  gestureDirection: 'horizontal',
+};
 
 const MainApp = () => {
   return (
@@ -29,29 +31,8 @@ const MainApp = () => {
         inactiveTintColor: 'gray',
       }}>
       <Tab.Screen name="Discover" component={HomeScreen} />
-      <Tab.Screen name="Courses" component={Courses} />
-      <Tab.Screen name="Messages" component={Messages} />
-      {/* <Tab.Screen name="Notifications" component={Notifications} /> */}
       <Tab.Screen name="Profiles" component={Profiles} />
     </Tab.Navigator>
-  );
-};
-
-const Authentication = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Register"
-        component={Register}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-    </Stack.Navigator>
   );
 };
 
@@ -71,18 +52,14 @@ const Routes = () => {
       <Stack.Screen
         name="MainApp"
         component={MainApp}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          ...config,
+        }}
       />
-
-      <Stack.Screen
-        name="Authentication"
-        component={Authentication}
-        options={{headerShown: false}}
-      />
+      <Stack.Screen name="Movie" component={Movie} />
     </Stack.Navigator>
   );
 };
 
 export default Routes;
-
-const styes = StyleSheet.create({});
