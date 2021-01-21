@@ -18,19 +18,17 @@ const {COLORS, FONTS, SIZES} = theme;
 
 const onBoardings = [
   {
-    title: "Let's Travelling",
-    description:
-      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
+    title: "Let's Search Movie",
+    description: 'Show populer movie',
     img: OnBoarding1,
   },
   {
     title: 'Navigation',
-    description:
-      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
+    description: 'Pull down to get new movies',
     img: OnBoarding2,
   },
   {
-    title: 'Destination',
+    title: 'Show Latest Movie',
     description:
       'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
     img: OnBoarding3,
@@ -45,8 +43,6 @@ const OnBoarding = ({navigation}) => {
   React.useEffect(() => {
     scrollX.addListener(({value}) => {
       if (Math.floor(value / SIZES.width) === onBoardings.length - 1) {
-        console.log(onBoardings, 'onBoardings');
-        console.log(Math.floor(value / SIZES.width), 'okekekeke');
         setCompleted(true);
       }
     });

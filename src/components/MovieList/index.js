@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text, FlatList, TouchableOpacity} from 'react-native';
 
 import {ListItem} from 'react-native-elements';
 import {COLORS, SIZES} from '../../constants';
-const Task = ({movies, navigation}) => {
+const Task = ({movies, navigation, getNewMovies}) => {
+  const [isFetching, setIsFetcghing] = useState(false);
+
   const handleNavigate = (value) => {
     navigation.push('Movie', {
       data: value,
     });
+  };
+  const onHandleRefresh = () => {
+    setIsFetcghing(true);
+    getNewMovies();
+    setIsFetcghing(false);
   };
 
   const ListTask = ({item}) => {
@@ -29,6 +36,8 @@ const Task = ({movies, navigation}) => {
       data={movies}
       renderItem={ListTask}
       keyExtractor={(item) => item.id.toString()}
+      onRefresh={() => onHandleRefresh()}
+      refreshing={isFetching}
     />
   );
 };

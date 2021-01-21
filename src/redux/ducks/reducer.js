@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
 
-import praysStoreReducer from '../reducers/praysStoreReducer';
+import moviesStoreReducer from '../reducers/moviesStoreReducer';
 
 const rootReducer = combineReducers({
-  praysStore: praysStoreReducer,
+  moviesStore: moviesStoreReducer,
 });
 
 export default rootReducer;

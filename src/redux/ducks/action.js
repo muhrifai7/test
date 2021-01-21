@@ -1,6 +1,6 @@
-import {getPrays} from '../actions/praysAction';
+import {getMovies} from '../actions/moviesAction';
 
 export {
   //dasaf
-  getPrays,
+  getMovies,
 };

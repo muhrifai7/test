@@ -14,7 +14,7 @@ export default async function fetchRequest(
     const api_key = 'f7b67d9afdb3c971d4419fa4cb667fbf';
     if (token != undefined) {
       const response = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${api_key}`,
+        `https://api.themoviedb.org/3/${path}?sort_by=popularity.desc&api_key=${api_key}`,
         {
           method,
           headers: {
@@ -34,7 +34,7 @@ export default async function fetchRequest(
       }
     } else {
       const response = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${api_key}`,
+        `https://api.themoviedb.org/3/${path}?sort_by=popularity.desc&api_key=${api_key}`,
         {
           method,
           headers: {

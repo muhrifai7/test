@@ -20,6 +20,9 @@ const SplashScreen = ({navigation}) => {
   };
   useEffect(() => {
     CheckConnectivity();
+    return () => {
+      setError(false);
+    };
   }, [error, CheckConnectivity]);
   return (
     <View style={{flex: 1}}>
