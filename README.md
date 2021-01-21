@@ -2,6 +2,11 @@
 
 A simple app to search popular movies
 
+## features
+- Show Popular movie
+- Show notification for new movies or latest
+- Chek connected device
+
 ## Available Scripts
 
 In the project directory, you can run:
