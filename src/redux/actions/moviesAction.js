@@ -32,11 +32,19 @@ export function getMovies(patch) {
     try {
       dispatch(MoviesAreLoading());
       const result = await GetMovies(patch);
-      if (patch == 'movie/latest') {
-        dispatch(fetchMovie(result));
-      } else {
-        dispatch(fetchAllMovies(result));
-      }
+      dispatch(fetchAllMovies(result));
+    } catch (error) {
+      getMoviesFailure(error.message);
+    }
+  };
+}
+
+export function getMovie(patch) {
+  return async (dispatch) => {
+    try {
+      dispatch(MoviesAreLoading());
+      const result = await GetMovie(patch);
+      dispatch(fetchMovie(result));
     } catch (error) {
       getMoviesFailure(error.message);
     }

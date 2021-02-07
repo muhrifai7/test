@@ -5,7 +5,7 @@ const defaultState = {
   page: 1,
   total_pages: 1,
   total_results: 1,
-  movie: [],
+  details: [],
 };
 
 export default (state = defaultState, action = {}) => {
@@ -14,9 +14,7 @@ export default (state = defaultState, action = {}) => {
       return {
         ...state,
         loading: false,
-        data: action.payload.results,
-        total_pages: action.payload.total_pages,
-        total_results: action.payload.total_results,
+        data: action.payload,
       };
     }
     case 'MOVIES_ARE_LOADING': {
@@ -37,7 +35,7 @@ export default (state = defaultState, action = {}) => {
       return {
         ...state,
         loading: false,
-        data: [action.payload],
+        details: action.payload,
       };
     }
 

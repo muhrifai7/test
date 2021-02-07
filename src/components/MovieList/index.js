@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {StyleSheet, View, Text, FlatList, TouchableOpacity} from 'react-native';
 
 import {ListItem} from 'react-native-elements';
@@ -19,11 +19,11 @@ const Task = ({movies, navigation, getNewMovies}) => {
 
   const ListTask = ({item}) => {
     return (
-      <TouchableOpacity key={item.id} onPress={() => handleNavigate(item)}>
+      <TouchableOpacity key={item.nomor} onPress={() => handleNavigate(item)}>
         <ListItem bottomDivider>
           <ListItem.Content>
-            <Text style={styles.title}>{item?.title}</Text>
-            <Text style={styles.description}>{item?.release_date}</Text>
+            <Text style={styles.title}>{item?.nama}</Text>
+            <Text style={styles.description}>{item?.arti}</Text>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -35,7 +35,7 @@ const Task = ({movies, navigation, getNewMovies}) => {
     <FlatList
       data={movies}
       renderItem={ListTask}
-      keyExtractor={(item) => item.id.toString()}
+      keyExtractor={(item) => item.nomor.toString()}
       onRefresh={() => onHandleRefresh()}
       refreshing={isFetching}
     />

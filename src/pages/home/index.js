@@ -6,7 +6,6 @@ import {getMovies} from '../../redux/ducks/action';
 import {useLocalStorage} from '../../utils/uselocalStorage';
 import {Gap, MovieList, LoadingSekelaton} from '../../components';
 import {COLORS} from '../../constants';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -30,24 +29,9 @@ const Home = ({navigation}) => {
     setNewMovies(data);
   }, [fetchData, newMovies, data]);
 
-  useEffect(() => {
-    let isMounted = true;
-    const intervalId = setInterval(async () => {
-      setNewMovieNotification(true);
-      setTimeout(() => {
-        setNewMovieNotification(false);
-      }, 8000);
-    }, 50000);
-    return () => {
-      setNewMovieNotification(false);
-      clearInterval(intervalId); //This is important
-      isMounted = false; // Let's us know the component is no longer mounted.
-    };
-  }, [setNewMovies, newMovies]);
-
   const fetchData = useCallback(async () => {
     if (!newMovies) {
-      await callNewMovies('discover/movie');
+      await callNewMovies('https://api.npoint.io/99c279bb173a6e28359c/data');
       setNewMovies(data);
     }
   }, [data, setNewMovies]);
@@ -70,25 +54,10 @@ const Home = ({navigation}) => {
           <MovieList
             movies={newMovies}
             navigation={navigation}
-            getNewMovies={() => callNewMovies('discover/movie')}
+            getNewMovies={() =>
+              callNewMovies('https://api.npoint.io/99c279bb173a6e28359c/data')
+            }
           />
-        )}
-        {newMovieNotification && (
-          <View style={styles.newMovie}>
-            <Text>Penyimpanan Lokal Telah Diperbaharui </Text>
-            <Gap width={5} />
-            <TouchableOpacity onPress={() => callNewMovies('movie/latest')}>
-              <Button
-                buttonStyle={{
-                  borderRadius: 0,
-                  marginLeft: 0,
-                  marginRight: 0,
-                  marginBottom: 0,
-                }}
-                title="Show"
-              />
-            </TouchableOpacity>
-          </View>
         )}
       </View>
     </View>
@@ -112,16 +81,5 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.green,
     fontSize: 25,
-  },
-  newMovie: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#b2bec3',
-    bottom: 10,
-    marginHorizontal: 8,
-    padding: 10,
-    alignItems: 'center',
-    borderRadius: 7,
   },
 });

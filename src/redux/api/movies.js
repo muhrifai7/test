@@ -9,3 +9,13 @@ export async function GetMovies(patch) {
     throw error;
   }
 }
+
+export async function GetMovie(patch) {
+  try {
+    const response = await fetchRequest('GET', patch);
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

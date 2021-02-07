@@ -13,19 +13,16 @@ export default async function fetchRequest(
     const token = undefined;
     const api_key = 'f7b67d9afdb3c971d4419fa4cb667fbf';
     if (token != undefined) {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/${path}?sort_by=popularity.desc&api_key=${api_key}`,
-        {
-          method,
-          headers: {
-            Accept: 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Authorization: token,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
+      const response = await fetch(path, {
+        method,
+        headers: {
+          Accept: 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: token,
+          'Content-Type': 'application/json',
         },
-      );
+        body: JSON.stringify(data),
+      });
       const result = await response.json();
       if (result.error != null) {
         throw result.error;
@@ -33,18 +30,15 @@ export default async function fetchRequest(
         return result;
       }
     } else {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/${path}?sort_by=popularity.desc&api_key=${api_key}`,
-        {
-          method,
-          headers: {
-            Accept: 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-          },
-          body: data,
+      const response = await fetch(path, {
+        method,
+        headers: {
+          Accept: 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
         },
-      );
+        body: data,
+      });
       const result = await response.json();
       if (result.error != null) {
         throw result.error;
